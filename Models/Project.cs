@@ -28,8 +28,8 @@ namespace ProjectManagementAPI.Models
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public decimal Budget { get; set; }
-        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
-        public DateTime ModifiedDate { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedDate { get; set; }
+        public DateTime ModifiedDate { get; set; }
         
         public ICollection<ProjectMember> ProjectMembers { get; set; }
         public ICollection<Contract> Contracts { get; set; }

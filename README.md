@@ -164,9 +164,12 @@ Response:
 
 - **JWT Authentication**: Secure token-based authentication
 - **Role-Based Access**: Three user roles (Admin, Manager, User)
+  - New users are automatically assigned "User" role
+  - Only Admins can promote users to Manager or Admin roles
 - **Password Hashing**: BCrypt for secure password storage
 - **HTTPS Support**: SSL/TLS encryption
 - **CORS Configuration**: Configurable cross-origin resource sharing
+- **Secret Key Management**: JWT secret key must be configured securely (see Configuration section)
 
 ## 🏗️ Architecture
 
@@ -216,19 +219,40 @@ UI/
 ## 🔧 Configuration
 
 ### API Configuration (appsettings.json)
+
+⚠️ **IMPORTANT SECURITY NOTE**: Before running in production, you MUST change the JWT SecretKey!
+
 ```json
 {
   "ConnectionStrings": {
     "DefaultConnection": "Your SQL Server connection string"
   },
   "JwtSettings": {
-    "SecretKey": "Your secret key",
+    "SecretKey": "GENERATE_A_STRONG_RANDOM_KEY_HERE",
     "Issuer": "ProjectManagementAPI",
     "Audience": "ProjectManagementAPIUsers",
     "ExpirationMinutes": 60
   }
 }
 ```
+
+**To generate a secure secret key:**
+```bash
+# Using PowerShell
+[Convert]::ToBase64String((1..64 | ForEach-Object { Get-Random -Maximum 256 }))
+
+# Using OpenSSL
+openssl rand -base64 64
+
+# Using Node.js
+node -e "console.log(require('crypto').randomBytes(64).toString('base64'))"
+```
+
+**Best Practices:**
+- Never commit the production secret key to source control
+- Use environment variables or Azure Key Vault for production
+- Rotate keys periodically
+- Keep the minimum key length of 32 characters
 
 ### UI Configuration (.env)
 ```

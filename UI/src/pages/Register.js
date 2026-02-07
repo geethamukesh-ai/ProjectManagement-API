@@ -105,11 +105,12 @@ const Register = () => {
           </div>
           <div className="form-group">
             <label>Role</label>
-            <select name="role" value={formData.role} onChange={handleChange}>
+            <select name="role" value={formData.role} onChange={handleChange} disabled>
               <option value="User">User</option>
-              <option value="Manager">Manager</option>
-              <option value="Admin">Admin</option>
             </select>
+            <small style={{color: '#666', fontSize: '0.85rem'}}>
+              New users are registered as "User" by default. Contact an administrator to change your role.
+            </small>
           </div>
           <button type="submit" className="btn-primary" disabled={loading}>
             {loading ? 'Registering...' : 'Register'}
