@@ -1,0 +1,21 @@
+.approval-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.approval-badge.pending {
+  background: #fff3e0;
+  color: #f57c00;
+}
+
+.approval-badge.approved {
+  background: #e8f5e9;
+  color: #388e3c;
+}
+
+.approval-badge.rejected {
+  background: #ffebee;
+  color: #d32f2f;
+}

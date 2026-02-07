@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using ProjectManagement_API.Models;
+using ProjectManagementAPI.Models;
 
-namespace ProjectManagement_API.Data
+namespace ProjectManagementAPI.Data
 {
     public class ApplicationDbContext : DbContext
     {
@@ -22,6 +22,11 @@ namespace ProjectManagement_API.Data
                 .WithOne(pm => pm.Project)
                 .HasForeignKey(pm => pm.ProjectId);
 
+            modelBuilder.Entity<Project>()
+                .HasMany(p => p.Documents)
+                .WithOne(d => d.Project)
+                .HasForeignKey(d => d.ProjectId);
+
             modelBuilder.Entity<ProjectMember>()
                 .HasOne(pm => pm.User)
                 .WithMany(u => u.ProjectMembers)
@@ -41,32 +46,6 @@ namespace ProjectManagement_API.Data
                 .HasOne(a => a.Document)
                 .WithMany(d => d.Approvals)
                 .HasForeignKey(a => a.DocumentId);
-
-            // Seed data configuration
-            modelBuilder.Entity<User>().HasData(
-                new User { Id = 1, Name = "Admin", Email = "admin@example.com" },
-                new User { Id = 2, Name = "User1", Email = "user1@example.com" }
-            );
-
-            modelBuilder.Entity<Project>().HasData(
-                new Project { Id = 1, Name = "Project Alpha", Description = "Description for Project Alpha" }
-            );
-
-            modelBuilder.Entity<ProjectMember>().HasData(
-                new ProjectMember { Id = 1, ProjectId = 1, UserId = 1 }
-            );
-
-            modelBuilder.Entity<Contract>().HasData(
-                new Contract { Id = 1, ProjectId = 1, ContractDetails = "Contract details for Project Alpha" }
-            );
-
-            modelBuilder.Entity<Document>().HasData(
-                new Document { Id = 1, ProjectId = 1, FileName = "Document1.pdf" }
-            );
-
-            modelBuilder.Entity<Approval>().HasData(
-                new Approval { Id = 1, DocumentId = 1, Approved = true }
-            );
         }
     }
 }
