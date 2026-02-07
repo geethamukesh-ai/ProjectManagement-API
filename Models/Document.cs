@@ -1,7 +1,8 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ProjectManagement_API.Models
+namespace ProjectManagementAPI.Models
 {
     public class Document
     {
@@ -16,5 +17,8 @@ namespace ProjectManagement_API.Models
         public string Status { get; set; }
         public int Version { get; set; }
         public string Description { get; set; }
+        
+        public Project Project { get; set; }
+        public ICollection<Approval> Approvals { get; set; }
     }
 }

@@ -1,6 +1,8 @@
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ProjectManagement_API.Models
+namespace ProjectManagementAPI.Models
 {
     public class User
     {
